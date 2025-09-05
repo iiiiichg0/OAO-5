@@ -1,1 +1,92 @@
-<!DOCTYPE html><html lang='ko'><head><meta charset='utf-8'><title>RP Hub</title></head><body><h1>RP Hub 템플릿</h1><p>index.html, styles.css, script.js를 수정해서 사용하세요.</p></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>메인</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#">OOAO RP</a>
+    <nav class="top-nav">
+      <a href="#">홈</a>
+      <a href="#about">소개</a>
+      <a href="#contact">연락</a>
+      <button id="themeToggle" class="btn small" aria-label="테마 전환">🌓</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <!-- 왼쪽: 게시판 사이드바 -->
+    <aside class="sidebar" aria-label="게시판">
+      <div class="board-header">
+        <h2>게시판</h2>
+        <button class="btn primary small" id="newPostBtn" aria-haspopup="dialog">글쓰기</button>
+      </div>
+
+      <!-- 검색 -->
+      <label class="search">
+        <input id="searchInput" type="search" placeholder="검색(제목/태그)" aria-label="게시글 검색" />
+      </label>
+
+      <!-- 카테고리 필터 -->
+      <div class="filters">
+        <button class="chip active" data-cat="all">전체</button>
+        <button class="chip" data-cat="공지">공지</button>
+        <button class="chip" data-cat="씬로그">씬로그</button>
+        <button class="chip" data-cat="자유">자유</button>
+      </div>
+
+      <!-- 게시글 목록 -->
+      <ul id="postList" class="post-list" aria-live="polite"></ul>
+    </aside>
+
+    <!-- 오른쪽: 본문 영역 -->
+    <section class="content">
+      <article id="viewer" class="viewer">
+        <h1>환영합니다</h1>
+        <p>왼쪽 게시판에서 글을 선택하면 이 영역에 내용이 열립니다.</p>
+        <p>처음엔 로컬 저장소에 저장되며, 나중에 실제 댓글/호스팅과 연동할 수 있습니다.</p>
+      </article>
+
+      <section id="contact" class="panel">
+        <h2>연락</h2>
+        <p>문의: <a href="mailto:you@example.com">you@example.com</a></p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> RP Hub</p>
+  </footer>
+
+  <!-- 글쓰기 모달 -->
+  <dialog id="postDialog" class="dialog">
+    <form method="dialog" class="post-form" id="postForm">
+      <h3>새 글</h3>
+      <label>제목
+        <input name="title" required placeholder="예: 공지: 9월 일정" />
+      </label>
+      <label>카테고리
+        <select name="category">
+          <option>공지</option>
+          <option>씬로그</option>
+          <option>자유</option>
+        </select>
+      </label>
+      <label>태그(공백/쉼표 구분)
+        <input name="tags" placeholder="#공지 #배포" />
+      </label>
+      <label>내용
+        <textarea name="content" rows="8" required placeholder="마크다운 일부 지원(굵게**, 강조*, 줄바꿈 등)"></textarea>
+      </label>
+      <div class="actions">
+        <button class="btn" value="cancel">취소</button>
+        <button class="btn primary" id="savePostBtn" value="default">저장</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
