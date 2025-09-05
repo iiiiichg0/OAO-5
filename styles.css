@@ -74,3 +74,11 @@ body {
   .layout { grid-template-columns: 1fr; }
   .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
 }
+.btn.danger { border-color: #ef4444; color: #ef4444; }
+.btn.danger:hover { background: #ef4444; color: #fff; }
+
+/* 삭제 버튼 */
+.viewer .toolbar {
+  display:flex; gap:.5rem; align-items:center; margin-bottom:.5rem;
+}
+.viewer .meta { color: var(--muted); font-size: .9rem; }

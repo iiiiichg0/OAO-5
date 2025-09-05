@@ -12,8 +12,6 @@
     <a class="brand" href="#">OOAO RP</a>
     <nav class="top-nav">
       <a href="#">홈</a>
-      <a href="#about">소개</a>
-      <a href="#contact">연락</a>
       <button id="themeToggle" class="btn small" aria-label="테마 전환">🌓</button>
     </nav>
   </header>
@@ -21,10 +19,13 @@
   <main class="layout">
     <!-- 왼쪽: 게시판 사이드바 -->
     <aside class="sidebar" aria-label="게시판">
-      <div class="board-header">
-        <h2>게시판</h2>
-        <button class="btn primary small" id="newPostBtn" aria-haspopup="dialog">글쓰기</button>
-      </div>
+  <div class="board-header">
+    <h2>게시판</h2>
+    <div class="board-actions">
+      <button class="btn primary small" id="newPostBtn" aria-haspopup="dialog">글쓰기</button>
+      <button class="btn danger small" id="clearAllBtn">전체 삭제</button>  <!-- 추가 -->
+    </div>
+  </div>
 
       <!-- 검색 -->
       <label class="search">
@@ -46,6 +47,7 @@
     <!-- 오른쪽: 본문 영역 -->
     <section class="content">
       <article id="viewer" class="viewer">
+        <!-- 글 열릴 때 JS가 여기에 제목/본문과 함께 '이 글 삭제' 버튼을 그려줍니다 -->
         <h1>환영합니다</h1>
         <p>왼쪽 게시판에서 글을 선택하면 이 영역에 내용이 열립니다.</p>
         <p>처음엔 로컬 저장소에 저장되며, 나중에 실제 댓글/호스팅과 연동할 수 있습니다.</p>
