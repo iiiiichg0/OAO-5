@@ -3,6 +3,7 @@ const $ = (q, c=document) => c.querySelector(q);
 const $$ = (q, c=document) => Array.from(c.querySelectorAll(q));
 const KEY = 'rp_board_posts_v1';
 
+// 초기 샘플
 const sample = [
   { id: crypto.randomUUID(), title: '공지: 사이트 개설', category: '공지', tags: ['#공지','#배포'], content: '첫 게시물입니다. 환영합니다!', date: new Date().toISOString() },
   { id: crypto.randomUUID(), title: '씬로그: 병동의 속삭임', category: '씬로그', tags: ['#병동','#달빛'], content: '노엘과 잭슨의 조용한 대화…', date: new Date(Date.now()-864e5).toISOString() },
@@ -36,7 +37,7 @@ function clearAll(){
   $('#viewer').innerHTML = '<h1>게시글 없음</h1><p>왼쪽 상단의 <strong>글쓰기</strong>로 새 글을 작성하세요.</p>';
 }
 
-// 렌더링
+// ── 렌더링 ──────────────────────────────────────────────────────────────────
 function renderList({query='', cat='all'} = {}){
   const list = load();
   const q = query.trim().toLowerCase();
@@ -77,7 +78,7 @@ function openPost(id){
   `;
   $('#viewer').innerHTML = html;
 
-    // 현재 글 삭제 버튼
+  // 현재 글 삭제 버튼
   $('#deleteCurrentBtn').addEventListener('click', ()=>{
     if (confirm('이 글을 삭제할까요?')) deletePost(p.id);
   });
@@ -99,51 +100,13 @@ function bindListClicks(){
       if (li) openPost(li.dataset.id);
     }
   });
-
-
-  // 첫 글 자동 선택(있을 때)
-  if (filtered[0]) openPost(filtered[0].id);
 }
 
-function mdLite(text='') {
-  // 아주 간단한 마크다운: **굵게**, *기울임*, 줄바꿈
-  return text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br>');
-}
-
-function openPost(id) {
-  const p = load().find(x => x.id === id);
-  if (!p) return;
-  const html = `
-    <h1>${p.title}</h1>
-    <p class="meta">${p.category} · ${new Date(p.date).toLocaleString()} · ${p.tags.join(' ')}</p>
-    <div>${mdLite(p.content)}</div>
-  `;
-  $('#viewer').innerHTML = html;
-}
-
-function bindListClicks() {
-  $('#postList').addEventListener('click', e => {
-    const li = e.target.closest('.post-item');
-    if (!li) return;
-    openPost(li.dataset.id);
-  });
-  $('#postList').addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const li = e.target.closest('.post-item');
-      if (li) openPost(li.dataset.id);
-    }
-  });
-}
-
-// 글쓰기
-function setupDialog() {
+// 글쓰기(기존과 동일)
+function setupDialog(){
   const dlg = $('#postDialog');
   $('#newPostBtn').addEventListener('click', ()=> dlg.showModal());
-  $('#postForm').addEventListener('submit', (e) => {
+  $('#postForm').addEventListener('submit', (e)=>{
     e.preventDefault();
     const fd = new FormData(e.target);
     const post = {
@@ -156,7 +119,6 @@ function setupDialog() {
     };
     const list = load(); list.unshift(post); save(list);
     dlg.close();
-    // 필터/검색 상태 유지한 채 목록 갱신
     const active = $('.chip.active')?.dataset.cat || 'all';
     renderList({ query: $('#searchInput').value, cat: active });
   });
